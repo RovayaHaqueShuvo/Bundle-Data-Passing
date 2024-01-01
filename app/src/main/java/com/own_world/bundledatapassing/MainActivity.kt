@@ -33,6 +33,35 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("department",department)
             intent.putExtra("semester",semester)
             startActivity(intent)
+
+
+
         }
+
+
+        val sh = getSharedPreferences("Mydata", MODE_PRIVATE)
+        val s1 = sh.getString("name",null)
+        val s2 = sh.getString("roll", null)
+        val s3 = sh.getString("department", null)
+        val s4 = sh.getString("semester", null)
+
+        binding.name.setText(s1)
+        binding.roll.setText(s2)
+        binding.department.setText(s3)
+        binding.semester.setText(s4)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Creating a shared pref object with a file name "MySharedPref" in private mode
+        val sharedPreferences = getSharedPreferences("Mydata", MODE_PRIVATE)
+        val myEdit = sharedPreferences.edit()
+
+        // write all the data entered by the user in SharedPreference and apply
+        myEdit.putString("name",  binding.name.text.toString())
+        myEdit.putString("roll",  binding.roll.text.toString())
+        myEdit.putString("department",  binding.department.text.toString())
+        myEdit.putString("semester",  binding.semester.text.toString())
+        myEdit.apply()
     }
 }
